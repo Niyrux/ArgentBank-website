@@ -3,7 +3,7 @@ import Edit from '../../components/editUserInfo/edit'
 import View from '../../components/view-money/view'
 import "./user-info.css"
 
-export default function userinfo() {
+export default function Userinfo() {
     return (
         <div className="main bg-dark">
             <Edit />
