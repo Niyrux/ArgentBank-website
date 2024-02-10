@@ -1,4 +1,3 @@
-// userSlice.js
 
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
@@ -43,6 +42,7 @@ const userSlice = createSlice({
         state.error = null;
         if (action.payload && action.payload.body.token) {
           localStorage.setItem('jwtToken', action.payload.body.token); 
+          console.log(action.payload.body.token)
         }
       })
       .addCase(loginUser.rejected, (state, action) => {
@@ -51,6 +51,8 @@ const userSlice = createSlice({
       });
   },
 });
+
+
 
 export const { setUser, logoutUser } = userSlice.actions;
 

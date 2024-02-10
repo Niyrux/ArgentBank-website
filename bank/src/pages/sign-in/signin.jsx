@@ -1,8 +1,8 @@
 import React, { useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { loginUser } from '../../components/reducers/userSlice'; 
-import './signin.css';
+import { loginUser } from '../../components/reducers/userSlice';
+import { fetchUserData } from '../../components/reducers/userInfo'; 
 
 function Signin() {
     const [email, setEmail] = useState('');
@@ -21,8 +21,10 @@ function Signin() {
         };
         
         dispatch(loginUser(postData)).then((result) => {
-            if (result.payload.body && result.payload.body.token) {
-                navigate('/user');
+            if (!result.error) {
+                dispatch(fetchUserData()).then(() => {
+                    navigate('/user');
+                });
             } else {
                 setLoginError(true); 
             }
