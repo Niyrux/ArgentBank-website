@@ -25,8 +25,8 @@ export const fetchUserData = createAsyncThunk(
   }
 );
 
-const userSlice = createSlice({
-  name: 'user',
+const userInfo = createSlice({
+  name: 'info',
   initialState: {
     data: {
       email: null,
@@ -50,7 +50,7 @@ const userSlice = createSlice({
       })
       .addCase(fetchUserData.fulfilled, (state, action) => {
         state.loading = false;
-        state.data = action.payload.body; 
+        state.data = action.payload; 
         state.error = null;
       })
       .addCase(fetchUserData.rejected, (state, action) => {
@@ -61,5 +61,5 @@ const userSlice = createSlice({
 });
 
 
-export const { setUser, logoutUser } = userSlice.actions;
-export default userSlice.reducer;
+export const { setUser, logoutUser } = userInfo.actions;
+export default userInfo.reducer;

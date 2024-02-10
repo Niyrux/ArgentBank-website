@@ -22,9 +22,6 @@ const userSlice = createSlice({
     error: null,
   },
   reducers: {
-    setUser: (state, action) => {
-      state.user = action.payload;
-    },
     logoutUser: (state) => {
       state.user = null;
       localStorage.removeItem('jwtToken'); 
@@ -42,7 +39,6 @@ const userSlice = createSlice({
         state.error = null;
         if (action.payload && action.payload.body.token) {
           localStorage.setItem('jwtToken', action.payload.body.token); 
-          console.log(action.payload.body.token)
         }
       })
       .addCase(loginUser.rejected, (state, action) => {

@@ -4,18 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { logoutUser } from "../../components/reducers/userSlice"; 
 import "./header.css";
 import Img from "../../assets/argentBankLogo.png";
-function getUser(){
-  let user = localStorage.getItem('user')
-  if(user){
-    user = JSON.parse(user);
-     console.log("ok")
-  }else {
-    user = null;
-  }
-  return user;
- 
-}
-getUser()
+
 function Header() {
   const user = useSelector((state) => state.user.user); 
   const dispatch = useDispatch();
