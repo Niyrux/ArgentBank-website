@@ -1,9 +1,11 @@
-import React from "react";
+import React, {useEffect} from "react";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { logoutUser } from "../../components/reducers/userSlice"; 
 import "./header.css";
 import Img from "../../assets/argentBankLogo.png";
+import { fetchUserData } from '../../components/reducers/userInfo';
+
 
 function Header() {
   const user = useSelector((state) => state.user.user); 
@@ -11,7 +13,10 @@ function Header() {
   const handleLogout = () => {
     dispatch(logoutUser()); 
   };
-
+  const userData = useSelector(state => state.userInfo.data);
+ useEffect(() => {
+    dispatch(fetchUserData());
+  }, [dispatch]);
   return (
     <nav className="main-nav">
       <Link className="main-nav-logo" to="/">
@@ -24,9 +29,13 @@ function Header() {
       <div>
         {user ? ( 
           <>
+          <Link className="main-nav-item" to="/user">
+            <i className="fa fa-user-circle"></i>
+            {userData.body.firstName}
+          </Link>
           <Link className="main-nav-item" to="/" onClick={handleLogout}>
-              <i className="fa fa-user-circle"></i>
-              Logout
+              <i className="fa fa-sign-out"></i>
+              Sign Out
             </Link>
           </>
         ) : (

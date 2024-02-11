@@ -7,7 +7,6 @@ export const fetchUserData = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       const token = localStorage.getItem('jwtToken');
-      console.log(token)
       if (!token) {
         throw new Error('No token found in localStorage');
       }
@@ -61,5 +60,4 @@ const userInfo = createSlice({
 });
 
 
-export const { setUser, logoutUser } = userInfo.actions;
 export default userInfo.reducer;
