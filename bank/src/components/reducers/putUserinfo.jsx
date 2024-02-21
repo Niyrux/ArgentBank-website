@@ -6,7 +6,6 @@ export const putUserdata = createAsyncThunk(
   async (newUserData, { rejectWithValue }) => { 
     try {
       const token = localStorage.getItem('jwtToken');
-      console.log(newUserData)
       if (!token) {
         throw new Error('No token found in localStorage');
       }

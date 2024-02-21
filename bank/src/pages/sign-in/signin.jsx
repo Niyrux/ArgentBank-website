@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { loginUser } from '../../components/reducers/userSlice';
 import { fetchUserData } from '../../components/reducers/userInfo'; 
+import './signin.css';
 
 function Signin() {
     const [email, setEmail] = useState('');
