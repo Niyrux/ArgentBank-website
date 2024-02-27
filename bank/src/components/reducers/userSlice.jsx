@@ -1,4 +1,3 @@
-
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
@@ -9,7 +8,13 @@ export const loginUser = createAsyncThunk(
       const response = await axios.post('http://localhost:3001/api/v1/user/login', userData);
       return response.data;
     } catch (error) {
-      return rejectWithValue(error.response.data);
+      if (error.response) {
+        return rejectWithValue(error.response.data);
+      } else if (error.request) {
+        return rejectWithValue({ message: 'Network error. Please try again later.' });
+      } else {
+        return rejectWithValue({ message: error.message });
+      }
     }
   }
 );
@@ -47,8 +52,6 @@ const userSlice = createSlice({
       });
   },
 });
-
-
 
 export const { setUser, logoutUser } = userSlice.actions;
 

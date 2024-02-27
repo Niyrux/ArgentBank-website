@@ -1,5 +1,5 @@
-import React, { useRef, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import React, { useRef, useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { loginUser } from '../../components/reducers/userSlice';
 import { fetchUserData } from '../../components/reducers/userInfo'; 
@@ -8,10 +8,19 @@ import './signin.css';
 function Signin() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [errorMessage, setErrorMessage] = useState('');
     const form = useRef();
     const dispatch = useDispatch();
     const navigate = useNavigate(); 
-    const [loginError, setLoginError] = useState(false); 
+    const error = useSelector((state) => state.user.error);
+    console.log(error)
+    useEffect(() => {
+        if(error && error.message === "Error: User not found!") {
+            setErrorMessage("Invalid credentials!");
+        } else if( error && error.message === 'Network error. Please try again later.'){
+             setErrorMessage('Network error. Please try again later.');
+        }
+    }, [error]);
 
     const handleForm = async (e) => {
         e.preventDefault();
@@ -24,11 +33,9 @@ function Signin() {
         dispatch(loginUser(postData)).then((result) => {
             if (!result.error) {
                 dispatch(fetchUserData()).then(() => {
-                    navigate('/user');
+                    navigate('/Profile');
                 });
-            } else {
-                setLoginError(true); 
-            }
+            } 
         })
     };
 
@@ -50,7 +57,7 @@ function Signin() {
                         <input type="checkbox" id="remember-me" /><label htmlFor="remember-me">Remember me</label>
                     </div>
                     <button className="sign-in-button">Sign In</button>
-                    {loginError && <p className="error-message">Invalid email or password. Please try again.</p>}
+                    {errorMessage && <p className="error-message">{errorMessage}</p>}
                 </form>
             </section>
         </main>

@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { logoutUser } from "../../components/reducers/userSlice"; 
 import "./header.css";
-import Img from "../../assets/argentBankLogo.png";
+import Img from "../../assets/argentBankLogo.webp";
 import { fetchUserData } from '../../components/reducers/userInfo';
 
 
@@ -27,23 +27,23 @@ function Header() {
         />
       </Link>
       <div>
-        {user ? ( 
-          <>
-          <Link className="main-nav-item" to="/user">
-            <i className="fa fa-user-circle"></i>
-            {userData.body.firstName}
-          </Link>
-          <Link className="main-nav-item" to="/" onClick={handleLogout}>
-              <i className="fa fa-sign-out"></i>
-              Sign Out
-            </Link>
-          </>
-        ) : (
-          <Link className="main-nav-item" to="/sign-in">
-            <i className="fa fa-user-circle"></i>
-            Sign In
-          </Link>
-        )}
+       {user && userData.body && userData.body.userName ? ( 
+  <>
+    <Link className="main-nav-item" to="/user">
+      <i className="fa fa-user-circle"></i>
+      {userData.body.firstName}
+    </Link>
+    <Link className="main-nav-item" to="/" onClick={handleLogout}>
+      <i className="fa fa-sign-out"></i>
+      Sign Out
+    </Link>
+  </>
+) : (
+  <Link className="main-nav-item" to="/sign-in">
+    <i className="fa fa-user-circle"></i>
+    Sign In
+  </Link>
+)}
       </div>
     </nav>
   );

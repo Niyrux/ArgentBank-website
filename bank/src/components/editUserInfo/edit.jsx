@@ -16,7 +16,7 @@ const Edit = () => {
     const userData = useSelector(state => state.userInfo.data);
     const isLoading = useSelector(state => state.userInfo.loading);
     const error = useSelector(state => state.userInfo.error);
-    const [newUserName, setNewUserName] = useState(userData.body.userName || "");   
+const [newUserName, setNewUserName] = useState(userData.body ? userData.body.userName : "");
     const editFormRef = useRef(null);
 
     useEffect(() => {
@@ -52,8 +52,8 @@ const handleFormSubmit = async (e) => {
 
     return (
         <div className="header">
-            <h1>Welcome back<br />{userData.body.userName + ' ' + userData.body.lastName}</h1>
-            {isFormVisible ? (
+            <h1>Welcome back<br />{userData.body && userData.body.userName + ' ' +  userData.body.lastName}</h1>
+            {isFormVisible  ? (
                 <form ref={editFormRef} onSubmit={handleFormSubmit} className="edit-form">
                     <div className='container-input'>
                     <input
